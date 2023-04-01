@@ -1,18 +1,35 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/fetch-hook";
 import classes from "./DetailMovie.module.scss";
+import MovieCast from "./MovieCast";
 
 function DetailMovie() {
   const params = useParams();
-
   const { data } = useFetch(`shows/${params.id}`);
   const { data: castData } = useFetch(`shows/${params.id}/cast`);
   const summary = data?.summary;
   console.log(castData);
 
+  const navigate = useNavigate();
+
   return (
     <div className={classes.movieCast}>
+      <button className={classes.back} onClick={() => navigate("/")}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+          />
+        </svg>
+      </button>
       {data && (
         <div className={classes["movie__detail"]}>
           <div className={classes["movie__detail-img"]}>
@@ -53,22 +70,9 @@ function DetailMovie() {
           </div>
         </div>
       )}
-      <div className={classes["movie-cast-content"]}>
-        <h2>Cast</h2>
-        {castData && (
-          <div className={classes["movie-casts"]}>
-            {castData?.map((cast) => (
-              <div key={cast.character.id} className={classes["movie-cast"]}>
-                <div>
-                  <img src={cast?.character?.image?.original} alt="" />
-                </div>
-                <p>{cast?.person?.name} as</p>
-                <p>{cast?.character?.name}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {castData && <MovieCast castData={castData} />}
+
+      <button className={classes["book-now"]}>Book Now</button>
     </div>
   );
 }
