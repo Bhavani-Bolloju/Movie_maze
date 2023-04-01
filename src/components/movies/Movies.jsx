@@ -5,10 +5,10 @@ import classes from "./Movies.module.scss";
 
 function Movies() {
   const { data } = useFetch("search/shows?q=all");
-  console.log(data);
 
   return (
     <div className={classes.movies}>
+      <h1>Shows</h1>
       <ul>
         {data &&
           data.map((item) => {
