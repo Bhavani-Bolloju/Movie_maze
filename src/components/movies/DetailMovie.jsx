@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/fetch-hook";
 import classes from "./DetailMovie.module.scss";
 import MovieCast from "./MovieCast";
+import BookShow from "./BookShow";
+import BackDrop from "./BackDrop";
 
 function DetailMovie() {
+  const [booknow, setBooknow] = useState(false);
   const params = useParams();
   const { data } = useFetch(`shows/${params.id}`);
   const { data: castData } = useFetch(`shows/${params.id}/cast`);
   const summary = data?.summary;
-  console.log(castData);
 
   const navigate = useNavigate();
+
+  const bookHandler = function () {
+    setBooknow((prev) => !prev);
+  };
 
   return (
     <div className={classes.movieCast}>
@@ -72,7 +78,18 @@ function DetailMovie() {
       )}
       {castData && <MovieCast castData={castData} />}
 
-      <button className={classes["book-now"]}>Book Now</button>
+      <button onClick={bookHandler} className={classes["book-now"]}>
+        Book Now
+      </button>
+
+      {booknow && (
+        <BookShow
+          onBook={bookHandler}
+          show={data?.name}
+          schedule={data?.schedule}
+        />
+      )}
+      {booknow && <BackDrop />}
     </div>
   );
 }

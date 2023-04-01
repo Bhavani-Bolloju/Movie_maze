@@ -2,14 +2,12 @@ import React from "react";
 import classes from "./MovieCast.module.scss";
 
 function MovieCast({ castData }) {
-  console.log(castData);
   return (
     <div className={classes["movie-casts"]}>
       <h2>Cast</h2>
       {castData && (
         <div className={classes["movie-casts-info"]}>
           {castData?.map((cast) => {
-            console.log(cast?.person?.image?.medium);
             return (
               <div key={cast?.character.id} className={classes["movie-cast"]}>
                 <div>
