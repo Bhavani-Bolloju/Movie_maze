@@ -51,7 +51,7 @@ function BookShow({ onBook, schedule, show }) {
         </svg>
       </div>
 
-      <h2>Cofirm order</h2>
+      <h2 className={classes["form-header"]}>Cofirm order</h2>
 
       <form
         className={classes["form"]}
