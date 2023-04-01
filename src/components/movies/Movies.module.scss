@@ -2,8 +2,8 @@
   padding: 50px 20px;
   ul {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     gap: 30px;
   }
 }

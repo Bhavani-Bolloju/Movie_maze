@@ -16,10 +16,15 @@ function Movies() {
               <MovieItem
                 key={item?.show?.id}
                 id={item?.show?.id}
-                image={item?.show?.image?.original}
+                image={item?.show?.image?.original || item?.show?.image?.medium}
                 name={item?.show?.name}
                 summary={item?.show?.summary}
                 rating={item?.show?.rating?.average}
+                genres={item?.show?.genres}
+                language={item?.show?.language}
+                premiered={item?.show?.premiered}
+                ended={item?.show?.ended}
+                nextEp={item?.show?._links}
               />
             );
           })}
